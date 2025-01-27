@@ -4,12 +4,19 @@ import 'package:ahana/pages/home.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart'; // Import dotenv
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  // Load the .env file
+  await dotenv.load(fileName: ".env");
+
+  // Initialize Firebase
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
   runApp(const MyApp());
 }
 
@@ -25,7 +32,7 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/auth', // Set the initial route here
       routes: {
-        '/': (context) => HomePage(), // Home page as the initial route
+        '/': (context) => HomePage(), // Home page route
         '/auth': (context) => AuthPage(), // Authentication page route
         '/articles': (context) => ArticlePage(), // Articles page route
         // Add other routes here as needed
