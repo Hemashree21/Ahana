@@ -119,7 +119,10 @@ class _HomePageState extends State<HomePage> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => ArticlePage()),
+                  MaterialPageRoute(
+                      builder: (context) => ArticlePage(),
+                      settings: RouteSettings(name: '/articles')
+                  ),
                 );
               },
               child: _articleCard(
