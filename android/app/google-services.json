@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "212066638863",
+    "project_id": "ahana-ce383",
+    "storage_bucket": "ahana-ce383.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:212066638863:android:27a0e0bb8e9c859c90177a",
+        "android_client_info": {
+          "package_name": "com.example.ahana"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBdDmWgQiwZ0HqD43QDl5L1Xjxg2G2BciE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
