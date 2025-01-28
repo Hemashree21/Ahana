@@ -120,7 +120,10 @@ class _HomePageState extends State<HomePage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => ArticlePage(),
+                      builder: (context) => BasePage(
+                          activeSection: 'articles',
+                          body: ArticlePage()
+                      ),
                       settings: RouteSettings(name: '/articles')
                   ),
                 );

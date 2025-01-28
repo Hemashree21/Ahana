@@ -86,13 +86,13 @@ class _ProductListPageState extends State<ProductListPage> {
     });
   }
 
-  void navigateToProductPage(BuildContext context) {
+  void navigateToProductPage(BuildContext context, Map<String, dynamic> product) {
     Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) => BasePage(
           activeSection: 'shopping',
-          body: ProductPage(),  // ProductPage should not wrap itself in Scaffold
+          body: ProductPage(product: product),  // ProductPage should not wrap itself in Scaffold
         ),
       ),
     );
@@ -231,7 +231,7 @@ class _ProductListPageState extends State<ProductListPage> {
                 itemBuilder: (context, index) {
                   final product = filteredProducts[index];
                   return GestureDetector(
-                    onTap: () => navigateToProductPage(context),
+                    onTap: () => navigateToProductPage(context, product),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 16.0, vertical: 8.0),
