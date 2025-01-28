@@ -28,7 +28,7 @@ class _HomePageState extends State<HomePage> {
               style: TextStyle(
                 fontSize: 28,
                 fontWeight: FontWeight.bold,
-                color: Color(0xFF630A00),
+                color: Color(0xFFA76760),
               ),
             ),
             SizedBox(height: 8),
@@ -44,7 +44,7 @@ class _HomePageState extends State<HomePage> {
             // Calendar Section
             Container(
               decoration: BoxDecoration(
-                border: Border.all(color: Colors.pink, width: 2),
+                border: Border.all(color: Color(0xFF630A00), width: 2),
                 borderRadius: BorderRadius.circular(12),
               ),
               padding: EdgeInsets.all(16),
@@ -55,7 +55,7 @@ class _HomePageState extends State<HomePage> {
                   IconButton(
                     icon: Icon(
                       isExpanded ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down,
-                      color: Colors.pink,
+                      color: Color(0xFF630A00),
                     ),
                     onPressed: () {
                       setState(() {
@@ -149,10 +149,10 @@ class _HomePageState extends State<HomePage> {
           padding: EdgeInsets.all(8),
           decoration: BoxDecoration(
             color: isToday
-                ? Colors.pink
+                ? Color(0xFFA76760)
                 : isHighlight
-                ? Color(0xFF630A00)
-                : Colors.pink[50],
+                ? Colors.red[900]
+                : Colors.transparent,
             borderRadius: BorderRadius.circular(8),
           ),
           child: Column(
@@ -183,7 +183,7 @@ class _HomePageState extends State<HomePage> {
       lastDay: DateTime(2030),
       calendarStyle: CalendarStyle(
         todayDecoration: BoxDecoration(
-          color: Colors.pink,
+          color: Color(0xFF630A00),
           shape: BoxShape.circle,
         ),
         outsideDaysVisible: false,

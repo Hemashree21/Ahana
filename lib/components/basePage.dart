@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class BasePage extends StatefulWidget {
-  final Widget body; // Declare the body as a field
+  final Widget body;
 
-  const BasePage({super.key, required this.body}); // Accept body as a required parameter
+  const BasePage({super.key, required this.body});
 
   @override
   _BasePageState createState() => _BasePageState();
@@ -16,40 +17,41 @@ class _BasePageState extends State<BasePage> {
     String currentRoute = ModalRoute.of(context)?.settings.name ?? '/';
 
     return Scaffold(
-      backgroundColor: Color(0xFFEFE7CA),
+      backgroundColor: const Color(0xFFEFE7CA),
       appBar: AppBar(
-        backgroundColor: Color(0xFFEFE7CA),
+        backgroundColor: const Color(0xFFEFE7CA),
         elevation: 0,
-        leading: Icon(Icons.account_circle, color: Color(0xFF630A00)),
-        title: Text(
+        leading: const Icon(Icons.account_circle, color: Color(0xFF630A00)),
+        title: const Text(
           'ahana',
           style: TextStyle(
-            fontFamily: 'Cursive',
+            fontFamily: 'LeagueScript',
+            fontWeight: FontWeight.w500,
             color: Color(0xFF630A00),
-            fontSize: 26,
+            fontSize: 25,
           ),
         ),
         centerTitle: true,
-        actions: [
+        actions: const [
           Icon(Icons.shopping_cart, color: Color(0xFF630A00)),
         ],
       ),
-      body: widget.body, // Use the passed body here
+      body: widget.body,
       bottomNavigationBar: Padding(
-        padding: EdgeInsets.all(12),
+        padding: const EdgeInsets.all(12),
         child: Container(
           decoration: BoxDecoration(
-            color: Color(0xFF630A00),
+            color: const Color(0xFF630A00),
             borderRadius: BorderRadius.circular(16),
           ),
-          padding: EdgeInsets.symmetric(vertical: 16),
+          padding: const EdgeInsets.symmetric(vertical: 16),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               _buildBottomIcon(context, 'lib/assets/consultation.png', '/consultation', currentRoute),
               _buildBottomIcon(context, 'lib/assets/shopping.png', '/shopping', currentRoute),
-              _buildBottomIcon(context, 'lib/assets/home.png', '/', currentRoute),
-              _buildBottomIcon(context, 'lib/assets/period_tracker.png', '/period_tracker', currentRoute),
+              _buildBottomIcon(context, 'lib/assets/home.png', '/home', currentRoute),
+              _buildBottomIcon(context, 'lib/assets/period_tracker.png', '/periodtracker', currentRoute),
               _buildBottomIcon(context, 'lib/assets/community.png', '/community', currentRoute),
               _buildBottomIcon(context, 'lib/assets/articles.png', '/articles', currentRoute),
             ],
@@ -59,23 +61,41 @@ class _BasePageState extends State<BasePage> {
     );
   }
 
+  /// Normalize the route to handle subroutes accurately
+  String _getParentRoute(String route) {
+    // Define parent routes for subroutes
+    if (route.startsWith('/shopping')) {
+      return '/shopping';
+    }
+    // Add similar handling for other routes if needed
+    return route; // Default case
+  }
+
   Widget _buildBottomIcon(BuildContext context, String assetPath, String routeName, String currentRoute) {
-    bool isSelected = currentRoute == routeName;
+    // Get the parent route of the current route
+    String parentRoute = _getParentRoute(currentRoute);
+
+    // Highlight the icon if the parent route matches the target route
+    bool isSelected = parentRoute == routeName;
+
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, routeName); // Navigate using named route
+        if (parentRoute != routeName) {
+          // Use GoRouter to navigate
+          context.go(routeName);
+        }
       },
       child: Container(
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          color: isSelected ? Color(0xFFEFE7CA) : Colors.transparent, // Highlight the selected icon
+          color: isSelected ? const Color(0xFFEFE7CA) : Colors.transparent, // Highlight the selected icon
         ),
-        padding: EdgeInsets.all(6), // Add padding for a circle effect
+        padding: const EdgeInsets.all(6), // Add padding for a circle effect
         child: Image.asset(
           assetPath,
           width: 32,
           height: 32,
-          color: isSelected ? Color(0xFF630A00) : Colors.white, // Change color when selected
+          color: isSelected ? const Color(0xFF630A00) : Colors.white, // Change color when selected
         ),
       ),
     );
