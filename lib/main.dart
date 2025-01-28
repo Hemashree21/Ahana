@@ -1,6 +1,7 @@
 import 'package:ahana/authentication/auth_page.dart';
 import 'package:ahana/components/basePage.dart';
 import 'package:ahana/pages/articles.dart';
+import 'package:ahana/pages/consultDoctor.dart';
 import 'package:ahana/pages/home.dart';
 import 'package:ahana/pages/productDetails.dart';
 import 'package:ahana/pages/viewProducts.dart';
@@ -34,13 +35,16 @@ class MyApp extends StatelessWidget {
         '/auth': (context) => AuthPage(), // Authentication page route
         '/articles': (context) => BasePage(
             activeSection: 'articles',
-            body: ArticlePage()
+            body: ArticlePage(),
         ), // Articles page route
         '/shopping': (context) => BasePage(
           activeSection: 'shopping',
           body: ProductListPage(),
         ), // View All Products Page
-        //'/productdetails': (context) => ProductPage(product: product),
+        '/consultation': (context) => BasePage(
+            activeSection: 'consultation',
+            body: AppointmentPage()
+        )
         // Add other routes here as needed
       },
     );
