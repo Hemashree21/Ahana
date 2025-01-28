@@ -11,8 +11,7 @@ class _ProductPageState extends State<ProductPage> {
 
   @override
   Widget build(BuildContext context) {
-    return BasePage(
-      body: SingleChildScrollView(
+    return SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -233,7 +232,6 @@ class _ProductPageState extends State<ProductPage> {
             ),
           ],
         ),
-      ),
     );
   }
 }

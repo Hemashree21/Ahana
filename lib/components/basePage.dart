@@ -1,101 +1,116 @@
+import 'package:ahana/pages/articles.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 class BasePage extends StatefulWidget {
   final Widget body;
+  final String activeSection;
 
-  const BasePage({super.key, required this.body});
+  const BasePage({
+    super.key,
+    required this.body,
+    this.activeSection = 'home',
+  });
 
   @override
   _BasePageState createState() => _BasePageState();
 }
 
 class _BasePageState extends State<BasePage> {
+  late String _activeSection;
+
+  @override
+  void initState() {
+    super.initState();
+    _activeSection = widget.activeSection;
+  }
+
+  void _handleNavigation(BuildContext context, String routeName, String section) {
+    setState(() {
+      _activeSection = section;
+    });
+    Navigator.pushNamed(context, routeName);
+  }
+
   @override
   Widget build(BuildContext context) {
-    // Get the current route name
-    String currentRoute = ModalRoute.of(context)?.settings.name ?? '/';
-
     return Scaffold(
-      backgroundColor: const Color(0xFFEFE7CA),
+      backgroundColor: Color(0xFFEFE7CA),
       appBar: AppBar(
-        backgroundColor: const Color(0xFFEFE7CA),
+        backgroundColor: Color(0xFFEFE7CA),
         elevation: 0,
-        leading: const Icon(Icons.account_circle, color: Color(0xFF630A00)),
-        title: const Text(
+        leading: Icon(Icons.account_circle, color: Color(0xFF630A00)),
+        title: Text(
           'ahana',
           style: TextStyle(
             fontFamily: 'LeagueScript',
-            fontWeight: FontWeight.w500,
             color: Color(0xFF630A00),
-            fontSize: 25,
+            fontSize: 26,
           ),
         ),
         centerTitle: true,
-        actions: const [
-          Icon(Icons.shopping_cart, color: Color(0xFF630A00)),
+        actions: [
+          Padding(
+            padding: EdgeInsets.only(right: 16),
+            child: Icon(Icons.shopping_cart, color: Color(0xFF630A00)),
+          ),
         ],
       ),
-      body: widget.body,
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.all(12),
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xFF630A00),
-            borderRadius: BorderRadius.circular(16),
-          ),
-          padding: const EdgeInsets.symmetric(vertical: 16),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              _buildBottomIcon(context, 'lib/assets/consultation.png', '/consultation', currentRoute),
-              _buildBottomIcon(context, 'lib/assets/shopping.png', '/shopping', currentRoute),
-              _buildBottomIcon(context, 'lib/assets/home.png', '/home', currentRoute),
-              _buildBottomIcon(context, 'lib/assets/period_tracker.png', '/periodtracker', currentRoute),
-              _buildBottomIcon(context, 'lib/assets/community.png', '/community', currentRoute),
-              _buildBottomIcon(context, 'lib/assets/articles.png', '/articles', currentRoute),
-            ],
-          ),
+      body: SafeArea(  // Wrap the body with SafeArea
+        child: widget.body,
+      ),
+      bottomNavigationBar: Container(  // Removed the extra Padding widget
+        margin: EdgeInsets.all(12),  // Changed padding to margin
+        decoration: BoxDecoration(
+          color: Color(0xFF630A00),
+          borderRadius: BorderRadius.circular(16),
+        ),
+        padding: EdgeInsets.symmetric(vertical: 16),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            _buildBottomIcon(context, 'lib/assets/consultation.png', '/consultation', 'consultation'),
+            _buildBottomIcon(context, 'lib/assets/shopping.png', '/shopping', 'shopping'),
+            _buildBottomIcon(context, 'lib/assets/home.png', '/', 'home'),
+            _buildBottomIcon(context, 'lib/assets/period_tracker.png', '/period_tracker', 'period_tracker'),
+            _buildBottomIcon(context, 'lib/assets/community.png', '/community', 'community'),
+            _buildBottomIcon(context, 'lib/assets/articles.png', '/articles', 'articles'),
+          ],
         ),
       ),
     );
   }
 
-  /// Normalize the route to handle subroutes accurately
-  String _getParentRoute(String route) {
-    // Define parent routes for subroutes
-    if (route.startsWith('/shopping')) {
-      return '/shopping';
-    }
-    // Add similar handling for other routes if needed
-    return route; // Default case
-  }
-
-  Widget _buildBottomIcon(BuildContext context, String assetPath, String routeName, String currentRoute) {
-    // Get the parent route of the current route
-    String parentRoute = _getParentRoute(currentRoute);
-
-    // Highlight the icon if the parent route matches the target route
-    bool isSelected = parentRoute == routeName;
-
+  Widget _buildBottomIcon(BuildContext context, String assetPath, String routeName, String section) {
+    bool isSelected = _activeSection == section;
     return GestureDetector(
       onTap: () {
-        if (parentRoute != routeName) {
-          // Use GoRouter to navigate
-          context.go(routeName);
+        // For Articles page
+        if (routeName == '/articles') {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => BasePage(
+                activeSection: 'articles',  // Set activeSection to 'articles'
+                body: ArticlePage(),  // Your Articles page widget
+              ),
+            ),
+          );
+        } else {
+          // Handle other navigation cases
+          _handleNavigation(context, routeName, section);
         }
       },
       child: Container(
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          color: isSelected ? const Color(0xFFEFE7CA) : Colors.transparent, // Highlight the selected icon
+          color: isSelected ? Color(0xFFEFE7CA) : Colors.transparent,
         ),
-        padding: const EdgeInsets.all(6), // Add padding for a circle effect
+        padding: EdgeInsets.all(6),
         child: Image.asset(
           assetPath,
           width: 32,
           height: 32,
-          color: isSelected ? const Color(0xFF630A00) : Colors.white, // Change color when selected
+          color: isSelected ? Color(0xFF630A00) : Colors.white,
         ),
       ),
     );

@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'package:ahana/components/basePage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:go_router/go_router.dart';
 import 'package:ahana/pages/productDetails.dart';
 
 class ProductListPage extends StatefulWidget {
@@ -87,15 +86,22 @@ class _ProductListPageState extends State<ProductListPage> {
     });
   }
 
-  void navigateToProductPage(BuildContext context, Map<String, dynamic> product) {
-    context.go('/productDetails', extra: product); // Using GoRouter to navigate
+  void navigateToProductPage(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => BasePage(
+          activeSection: 'shopping',
+          body: ProductPage(),  // ProductPage should not wrap itself in Scaffold
+        ),
+      ),
+    );
   }
 
 
   @override
   Widget build(BuildContext context) {
-    return BasePage(
-      body: Scaffold(
+    return Scaffold(
         backgroundColor: const Color(0xFFEFE7CA),
         body: isLoading
             ? const Center(child: CircularProgressIndicator())
@@ -225,7 +231,7 @@ class _ProductListPageState extends State<ProductListPage> {
                 itemBuilder: (context, index) {
                   final product = filteredProducts[index];
                   return GestureDetector(
-                    onTap: () => navigateToProductPage(context, product),
+                    onTap: () => navigateToProductPage(context),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 16.0, vertical: 8.0),
@@ -297,7 +303,6 @@ class _ProductListPageState extends State<ProductListPage> {
             ),
           ],
         ),
-      ),
     );
   }
 }

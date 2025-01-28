@@ -3,12 +3,16 @@ import 'package:ahana/components/basePage.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ArticlePage extends StatelessWidget {
-  const ArticlePage({Key? key}) : super(key: key);
+  final String activeSection;
+
+  const ArticlePage({
+    Key? key,
+    this.activeSection = 'articles',  // Default to articles
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return BasePage(
-      body: SingleChildScrollView(
+    return SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -152,7 +156,6 @@ class ArticlePage extends StatelessWidget {
             ),
           ],
         ),
-      ),
     );
   }
 }
@@ -183,12 +186,15 @@ class HorizontalArticleList extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => ArticleDetailPage(
-                      title: article["title"]!,
-                      image: article["image"]!,
-                      author: article["author"]!,
-                      content: article["content"]!,
-                    ),
+                    builder: (context) => BasePage(
+                        activeSection: 'articles',
+                        body: ArticleDetailPage(
+                          title: article["title"]!,
+                          image: article["image"]!,
+                          author: article["author"]!,
+                          content: article["content"]!,
+                        ),
+                    )
                   ),
                 );
               },
@@ -220,8 +226,7 @@ class ArticleDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BasePage(
-      body: SingleChildScrollView(
+    return SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -272,7 +277,6 @@ class ArticleDetailPage extends StatelessWidget {
             ),
           ],
         ),
-      ),
     );
   }
 }
@@ -343,11 +347,14 @@ class ArticleCard extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => ArticleDetailPage(
-              title: title,
-              image: image,
-              author: author,
-              content: content,
+            builder: (context) => BasePage(
+              activeSection: 'articles',  // Keep articles selected
+              body: ArticleDetailPage(
+                title: title,
+                image: image,
+                author: author,
+                content: content,
+              ),
             ),
           ),
         );
