@@ -161,7 +161,7 @@ class _PeriodTrackerPageState extends State<PeriodTrackerPage> {
                 title: 'Marjaryasana-Bitilasana',
                 subtitle: 'Cat-Cow Pose',
                 description: 'Eases cramps and stretches the spine.',
-                image: 'lib/assets/exercise2.jpg',
+                image: 'lib/assets/exercise2.webp',
               ),
             ],
           ),
