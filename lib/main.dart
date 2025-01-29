@@ -3,10 +3,10 @@ import 'package:ahana/components/basePage.dart';
 import 'package:ahana/pages/articles.dart';
 import 'package:ahana/pages/cart.dart';
 import 'package:ahana/pages/cartService.dart';
+import 'package:ahana/pages/checkout.dart';
 import 'package:ahana/pages/community.dart';
 import 'package:ahana/pages/consultDoctor.dart';
 import 'package:ahana/pages/home.dart';
-import 'package:ahana/pages/productDetails.dart';
 import 'package:ahana/pages/trackPeriod.dart';
 import 'package:ahana/pages/viewProducts.dart';
 import 'package:flutter/material.dart';
@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         scaffoldBackgroundColor: const Color(0xFFEFE7CA), // Global background color
       ),
-      initialRoute: '/', // Set the initial route here
+      initialRoute: '/auth', // Set the initial route here
       routes: {
         '/': (context) => HomePage(), // Home page as the initial route
         '/auth': (context) => AuthPage(), // Authentication page route
@@ -63,7 +63,15 @@ class MyApp extends StatelessWidget {
         '/periodtracker': (context) => BasePage(
             activeSection: 'period_tracker',
             body: PeriodTrackerPage(),
-        ), // Add other routes here as needed
+        ),
+        '/checkout': (context) => BasePage(
+            activeSection: 'shopping',
+            body: CheckoutPage(),
+        ),
+        '/viewappointment': (context) => BasePage(
+            activeSection: 'consultation',
+            body: AppointmentPage(),
+        )
       },
     );
   }

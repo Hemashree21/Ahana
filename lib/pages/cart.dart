@@ -1,4 +1,6 @@
+import 'package:ahana/components/basePage.dart';
 import 'package:ahana/pages/cartService.dart';
+import 'package:ahana/pages/checkout.dart';
 import 'package:flutter/material.dart';
 
 class CartPage extends StatefulWidget {
@@ -152,8 +154,15 @@ class _CartPageState extends State<CartPage> {
                     padding: const EdgeInsets.all(16.0),
                     child: ElevatedButton(
                       onPressed: () {
-                        // Implement checkout logic
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => BasePage(
+                              activeSection: 'shopping',
+                              body: CheckoutPage()
+                          )),
+                        );
                       },
+
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.brown[800],
                         minimumSize: Size(double.infinity, 50),
