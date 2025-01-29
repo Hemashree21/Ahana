@@ -1,3 +1,5 @@
+import 'package:ahana/pages/cart.dart';
+import 'package:ahana/pages/cartService.dart';
 import 'package:flutter/material.dart';
 import 'package:ahana/components/basePage.dart';
 
@@ -12,6 +14,38 @@ class ProductPage extends StatefulWidget {
 
 class _ProductPageState extends State<ProductPage> {
   int quantity = 1;
+  final CartService _cartService = CartService();
+
+  @override
+  void initState() {
+    super.initState();
+    _loadCart();
+  }
+
+  Future<void> _loadCart() async {
+    await _cartService.loadCart();
+  }
+
+  void _addToCart() async {
+    final item = CartProduct(
+      imagePath: widget.product['image'],
+      title: widget.product['name'],
+      quantityLabel: widget.product['quantityLabel'] ?? 'KG',
+      price: widget.product['price'],
+      quantity: quantity,
+    );
+
+    await _cartService.addItem(item);
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('${widget.product['name']} added to cart'),
+        duration: Duration(seconds: 2),
+      ),
+    );
+
+    Navigator.pushNamed(context, '/cart');
+  }
 
   String getProductDescription(String productName) {
     // Add descriptions for each product
@@ -127,10 +161,13 @@ class _ProductPageState extends State<ProductPage> {
         children: [
           AspectRatio(
             aspectRatio: 16 / 9,
-            child: PageView(
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(8),
+              child: PageView(
               children: [
                 Image.asset(widget.product['image'], fit: BoxFit.cover),
               ],
+            ),
             ),
           ),
           const SizedBox(height: 16),
@@ -217,7 +254,7 @@ class _ProductPageState extends State<ProductPage> {
               const SizedBox(width: 16),
               Expanded(
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: _addToCart,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.brown[800],
                     shape: RoundedRectangleBorder(

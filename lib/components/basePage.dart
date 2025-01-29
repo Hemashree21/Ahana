@@ -51,7 +51,12 @@ class _BasePageState extends State<BasePage> {
         actions: [
           Padding(
             padding: EdgeInsets.only(right: 16),
-            child: Icon(Icons.shopping_cart, color: Color(0xFF630A00)),
+            child: GestureDetector(
+              onTap: () {
+                Navigator.pushNamed(context, '/cart');
+              },
+              child: Icon(Icons.shopping_cart, color: Color(0xFF630A00)),
+            ),
           ),
         ],
       ),

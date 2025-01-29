@@ -129,9 +129,9 @@ class _HomePageState extends State<HomePage> {
                 );
               },
               child: _articleCard(
-                image: 'lib/assets/art.png',
-                title: '5 things everyone should know about menstruation',
-                author: 'Maria Cohut, Ph.D.',
+                image: 'lib/assets/image3.jpeg',
+                title: "Top 6 Remedies for Teens",
+                author: 'Dr. Lisa White',
               ),
             ),
           ],

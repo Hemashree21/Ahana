@@ -1,6 +1,8 @@
 import 'package:ahana/authentication/auth_page.dart';
 import 'package:ahana/components/basePage.dart';
 import 'package:ahana/pages/articles.dart';
+import 'package:ahana/pages/cart.dart';
+import 'package:ahana/pages/cartService.dart';
 import 'package:ahana/pages/consultDoctor.dart';
 import 'package:ahana/pages/home.dart';
 import 'package:ahana/pages/productDetails.dart';
@@ -18,6 +20,9 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
+  await CartService.init();
+
   runApp(const MyApp());
 }
 class MyApp extends StatelessWidget {
@@ -44,7 +49,11 @@ class MyApp extends StatelessWidget {
         '/consultation': (context) => BasePage(
             activeSection: 'consultation',
             body: AppointmentPage()
-        )
+        ),
+        '/cart': (context) => BasePage(
+            activeSection: 'shopping',
+            body: CartPage(),
+        ),
         // Add other routes here as needed
       },
     );
