@@ -3,9 +3,11 @@ import 'package:ahana/components/basePage.dart';
 import 'package:ahana/pages/articles.dart';
 import 'package:ahana/pages/cart.dart';
 import 'package:ahana/pages/cartService.dart';
+import 'package:ahana/pages/community.dart';
 import 'package:ahana/pages/consultDoctor.dart';
 import 'package:ahana/pages/home.dart';
 import 'package:ahana/pages/productDetails.dart';
+import 'package:ahana/pages/trackPeriod.dart';
 import 'package:ahana/pages/viewProducts.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -54,7 +56,14 @@ class MyApp extends StatelessWidget {
             activeSection: 'shopping',
             body: CartPage(),
         ),
-        // Add other routes here as needed
+        '/community': (context) => BasePage(
+            activeSection: 'community',
+            body: CommunityPage(),
+        ),
+        '/periodtracker': (context) => BasePage(
+            activeSection: 'period_tracker',
+            body: PeriodTrackerPage(),
+        ), // Add other routes here as needed
       },
     );
   }

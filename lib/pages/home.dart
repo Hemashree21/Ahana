@@ -1,3 +1,4 @@
+import 'package:ahana/components/periodCalendar.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:ahana/pages/articles.dart';
@@ -42,30 +43,7 @@ class _HomePageState extends State<HomePage> {
             SizedBox(height: 16),
 
             // Calendar Section
-            Container(
-              decoration: BoxDecoration(
-                border: Border.all(color: Color(0xFF630A00), width: 2),
-                borderRadius: BorderRadius.circular(12),
-              ),
-              padding: EdgeInsets.all(16),
-              child: Column(
-                children: [
-                  _buildWeekCalendar(),
-                  if (isExpanded) _buildFullCalendar(),
-                  IconButton(
-                    icon: Icon(
-                      isExpanded ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down,
-                      color: Color(0xFF630A00),
-                    ),
-                    onPressed: () {
-                      setState(() {
-                        isExpanded = !isExpanded;
-                      });
-                    },
-                  ),
-                ],
-              ),
-            ),
+            const PeriodCalendar(),
             SizedBox(height: 16),
 
             // Today Section

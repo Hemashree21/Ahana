@@ -76,7 +76,7 @@ class _BasePageState extends State<BasePage> {
             _buildBottomIcon(context, 'lib/assets/consultation.png', '/consultation', 'consultation'),
             _buildBottomIcon(context, 'lib/assets/shopping.png', '/shopping', 'shopping'),
             _buildBottomIcon(context, 'lib/assets/home.png', '/', 'home'),
-            _buildBottomIcon(context, 'lib/assets/period_tracker.png', '/period_tracker', 'period_tracker'),
+            _buildBottomIcon(context, 'lib/assets/period_tracker.png', '/periodtracker', 'period_tracker'),
             _buildBottomIcon(context, 'lib/assets/community.png', '/community', 'community'),
             _buildBottomIcon(context, 'lib/assets/articles.png', '/articles', 'articles'),
           ],
