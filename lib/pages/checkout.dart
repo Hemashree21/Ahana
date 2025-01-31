@@ -37,8 +37,8 @@ class _CheckoutPageState extends State<CheckoutPage> {
             const Text(
               'Checkout',
               style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
+                fontSize: 25,
+                fontWeight: FontWeight.w500,
                 color: Color(0xFF640000),
               ),
             ),

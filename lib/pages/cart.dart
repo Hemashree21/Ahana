@@ -40,8 +40,8 @@ class _CartPageState extends State<CartPage> {
               child: Text(
                 "Cart Page",
                 style: TextStyle(
-                  fontSize: 28,
-                  fontWeight: FontWeight.bold,
+                  fontSize: 25,
+                  fontWeight: FontWeight.w500,
                   color: Color(0xFF630A00),
                 ),
               ),
@@ -164,7 +164,7 @@ class _CartPageState extends State<CartPage> {
                       },
 
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.brown[800],
+                        backgroundColor: Color(0xFF630A00),
                         minimumSize: Size(double.infinity, 50),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8),
@@ -204,8 +204,16 @@ class CartItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      color: Color(0xFFEFE7CA),
       margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       elevation: 2,
+      shape: RoundedRectangleBorder(
+        side: BorderSide(
+          color: Color(0xFF630A00), // Border color is black
+          width: 2.5,          // Border width is 2.0
+        ),
+        borderRadius: BorderRadius.circular(8.0), // Optional: Adjust the corner radius if needed
+      ),
       child: Padding(
         padding: EdgeInsets.all(12),
         child: Row(
@@ -239,7 +247,7 @@ class CartItemWidget extends StatelessWidget {
                     "₹${item.price} per ${item.quantityLabel}",
                     style: TextStyle(
                       fontSize: 14,
-                      color: Colors.grey[600],
+                      color: Colors.grey[800],
                     ),
                   ),
                   SizedBox(height: 8),
@@ -301,7 +309,7 @@ class CartItemWidget extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.all(4),
         decoration: BoxDecoration(
-          color: Colors.brown[800],
+          color: Color(0xFF630A00),
           borderRadius: BorderRadius.circular(4),
         ),
         child: Icon(

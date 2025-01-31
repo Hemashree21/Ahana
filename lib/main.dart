@@ -8,14 +8,26 @@ import 'package:ahana/pages/community.dart';
 import 'package:ahana/pages/consultDoctor.dart';
 import 'package:ahana/pages/home.dart';
 import 'package:ahana/pages/trackPeriod.dart';
+import 'package:ahana/pages/viewAppointment.dart';
 import 'package:ahana/pages/viewProducts.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/adapters.dart';
 import 'firebase_options.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:ahana/pages/viewAppointment.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  await Hive.initFlutter();
+
+  if (!Hive.isAdapterRegistered(1)) {
+    Hive.registerAdapter(AppointmentAdapter());
+  }
+
+  await Hive.openBox<Appointment>('appointments');
 
   await dotenv.load(fileName: ".env");
 
@@ -27,6 +39,7 @@ void main() async {
 
   runApp(const MyApp());
 }
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
   // This widget is the root of your application.
@@ -36,7 +49,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         scaffoldBackgroundColor: const Color(0xFFEFE7CA), // Global background color
       ),
-      initialRoute: '/auth', // Set the initial route here
+      initialRoute: '/', // Set the initial route here
       routes: {
         '/': (context) => HomePage(), // Home page as the initial route
         '/auth': (context) => AuthPage(), // Authentication page route
@@ -70,7 +83,7 @@ class MyApp extends StatelessWidget {
         ),
         '/viewappointment': (context) => BasePage(
             activeSection: 'consultation',
-            body: AppointmentPage(),
+            body: ViewAppointment(),
         )
       },
     );

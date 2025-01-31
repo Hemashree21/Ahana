@@ -256,7 +256,7 @@ class _ProductPageState extends State<ProductPage> {
                 child: ElevatedButton(
                   onPressed: _addToCart,
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.brown[800],
+                    backgroundColor: Color(0xFF630A00),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
                     ),

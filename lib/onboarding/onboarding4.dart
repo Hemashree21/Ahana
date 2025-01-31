@@ -1,5 +1,5 @@
+import 'package:ahana/onboarding/onboarding5.dart';
 import 'package:flutter/material.dart';
-import 'package:ahana/pages/home.dart';
 
 class SuccessScreen extends StatelessWidget {
   const SuccessScreen({Key? key}) : super(key: key);
@@ -32,11 +32,9 @@ class SuccessScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.pushReplacement(
+        Navigator.push(
           context,
-          MaterialPageRoute(
-            builder: (context) => HomePage(), // Replace with your HomePage widget
-          ),
+          MaterialPageRoute(builder: (context) => const SubscriptionPage()),
         );
       },
       child: Scaffold(

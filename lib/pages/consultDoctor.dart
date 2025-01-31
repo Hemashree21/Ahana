@@ -15,8 +15,8 @@ class AppointmentPage extends StatelessWidget {
             Text(
               'Book Appointment',
               style: TextStyle(
-                fontSize: 24.0,
-                fontWeight: FontWeight.bold,
+                fontSize: 25,
+                fontWeight: FontWeight.w500,
                 color: Color(0xFF630A00),
               ),
             ),
@@ -69,10 +69,10 @@ class DoctorCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: const Color(0xFFE7A49C),
         borderRadius: BorderRadius.circular(12.0),
-        border: Border.all(
-          color: Colors.black,
-          width: 2.0,
-        ),
+        // border: Border.all(
+        //   color: Color(0xFF630A00),
+        //   width: 2.0,
+        // ),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.05),

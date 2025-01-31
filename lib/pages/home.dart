@@ -29,7 +29,7 @@ class _HomePageState extends State<HomePage> {
               style: TextStyle(
                 fontSize: 28,
                 fontWeight: FontWeight.bold,
-                color: Color(0xFFA76760),
+                color: Color(0xFF630A00),
               ),
             ),
             SizedBox(height: 8),
@@ -37,7 +37,7 @@ class _HomePageState extends State<HomePage> {
               'January, 2025',
               style: TextStyle(
                 fontSize: 16,
-                color: Color(0xFF767600),
+                color: Colors.black,
               ),
             ),
             SizedBox(height: 16),
@@ -56,32 +56,32 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             SizedBox(height: 8),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                  flex: 2,
-                  child: _nextAppointmentCard(),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.55, // 65% width
+                child: _nextAppointmentCard(),
+              ),
+              const SizedBox(width: 8),
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.35, // 35% width
+                child: Column(
+                  children: [
+                    _card(
+                      icon: Icons.book,
+                      title: 'Consultation',
+                      iconColor: Color(0xFF630A00),
+                      backgroundColor: Color(0xFFA76760),
+                      textColor: Color(0xFF630A00),
+                      subtitle: 'History',
+                    ),
+                  ],
                 ),
-                SizedBox(width: 16),
-                Expanded(
-                  flex: 1,
-                  child: Column(
-                    children: [
-                      _card(
-                        icon: Icons.book,
-                        title: 'My Periods',
-                        iconColor: Color(0xFF630A00),
-                        backgroundColor: Color(0xFFA76760),
-                        textColor: Color(0xFF630A00),
-                        subtitle: 'History',
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: 16),
+              ),
+            ],
+          ),
+          SizedBox(height: 16),
 
             // Popular Articles Section
             Text(
@@ -182,6 +182,34 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _nextAppointmentCard() {
+    // Assuming we'll pass booked appointments from a state management solution or service
+    final List<String> bookedAppointments = []; // This would be populated dynamically
+
+    if (bookedAppointments.isEmpty) {
+      return Container(
+        margin: EdgeInsets.symmetric(vertical: 8),
+        height: 150,
+        padding: EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: Color(0xFFA76760),
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Center(
+          child: Text(
+            'No Appointments',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+      );
+    }
+
+    // Show the most recently booked appointment
+    final mostRecentAppointment = bookedAppointments.last;
+
     return Container(
       margin: EdgeInsets.symmetric(vertical: 8),
       padding: EdgeInsets.all(16),
@@ -214,7 +242,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 SizedBox(height: 8),
                 Text(
-                  '18 January 2025\n01:30 PM\nDr. Selly\nGeneral Practitioner',
+                  mostRecentAppointment, // Display the most recent appointment details
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 14,
@@ -237,44 +265,47 @@ class _HomePageState extends State<HomePage> {
     required Color backgroundColor,
     required Color textColor,
   }) {
-    return Container(
-      margin: EdgeInsets.symmetric(vertical: 8),
-      padding: EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: backgroundColor,
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Column(
-        children: [
-          Icon(
-            icon,
-            color: iconColor,
-            size: 56,
-          ),
-          SizedBox(height: 8),
-          Text(
-            title,
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 16,
-              color: textColor,
+    // Assuming we'll pass booked appointments from a state management solution or service
+    final List<String> bookedAppointments = []; // This would be populated dynamically
+
+    return GestureDetector(
+      onTap: () {
+        Navigator.pushNamed(context, '/viewappointment');
+      },
+      child: Container(
+        margin: EdgeInsets.symmetric(vertical: 8),
+        width: 150,
+        padding: EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: backgroundColor,
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Column(
+          children: [
+            Icon(
+              icon,
+              color: iconColor,
+              size: 56,
             ),
-          ),
-          if (subtitle != null) ...[
-            SizedBox(height: 4),
-            Text(
-              subtitle,
-              style: TextStyle(color: Colors.white),
-            ),
-          ],
-          if (additional != null) ...[
             SizedBox(height: 8),
             Text(
-              additional,
-              style: TextStyle(color: Colors.white),
+              title,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
+                color: textColor,
+              ),
             ),
+            if (subtitle != null) ...[
+              SizedBox(height: 4),
+              Text(
+                subtitle,
+                style: TextStyle(color: Colors.white),
+              ),
+            ],
+            SizedBox(height: 8),
           ],
-        ],
+        ),
       ),
     );
   }

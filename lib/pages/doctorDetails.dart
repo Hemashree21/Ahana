@@ -162,7 +162,7 @@ class DoctorDetailsPage extends StatelessWidget {
                             MaterialPageRoute(
                               builder: (context) => BasePage(
                                   activeSection: 'consultation',
-                                  body: BookAppointment(doctorName: doctor.name),
+                                  body: BookAppointment(doctorName: doctor.name, doctorImage: doctor.imageUrl),
                               ),
                             ),
                           );

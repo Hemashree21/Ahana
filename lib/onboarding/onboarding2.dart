@@ -2,6 +2,8 @@ import 'package:ahana/onboarding/onboarding3.dart';
 import 'package:flutter/material.dart';
 import 'package:ahana/components/onboardingTextfield.dart';
 import 'package:ahana/components/myButton.dart';
+import 'package:intl/intl.dart';
+import 'package:table_calendar/table_calendar.dart';
 
 class CycleDetailsPage extends StatefulWidget {
   @override
@@ -13,26 +15,25 @@ class _CycleDetailsPageState extends State<CycleDetailsPage> {
   int periodDuration = 5;
   String? flowIntensity = 'light';
   late TextEditingController _periodDurationController;
-  final TextEditingController lastperiod = TextEditingController();
   final TextEditingController cyclelength = TextEditingController();
+  DateTime focusedDay = DateTime.now();
+  DateTime selectedDay = DateTime.now();
 
   @override
   void initState() {
     super.initState();
-    _periodDurationController =
-        TextEditingController(text: periodDuration.toString());
+    _periodDurationController = TextEditingController(text: periodDuration.toString());
   }
 
   @override
   void dispose() {
     _periodDurationController.dispose();
+    cyclelength.dispose();
     super.dispose();
   }
 
   void saveCycleDetails() {
-    // Check if all fields are filled
-    if (lastperiod.text.isEmpty || cyclelength.text.isEmpty || _periodDurationController.text.isEmpty) {
-      // Show an error message or highlight the empty fields
+    if (cyclelength.text.isEmpty || _periodDurationController.text.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('Please fill all the required fields'),
@@ -40,7 +41,6 @@ class _CycleDetailsPageState extends State<CycleDetailsPage> {
         ),
       );
     } else {
-      // If all fields are filled, proceed to the next page
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => MedicalDetailsScreen()),
@@ -48,26 +48,164 @@ class _CycleDetailsPageState extends State<CycleDetailsPage> {
     }
   }
 
+  Widget _buildCalendarSection() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'First day of Last Period',
+          style: TextStyle(
+            fontSize: 16,
+            color: Colors.black87,
+          ),
+        ),
+        const SizedBox(height: 8),
+        Container(
+          decoration: BoxDecoration(
+            border: Border.all(color: const Color(0xFF630A00), width: 2),
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          focusedDay = DateTime(focusedDay.year, focusedDay.month - 1);
+                        });
+                      },
+                      child: const Icon(
+                        Icons.arrow_left,
+                        color: Color(0xFF630A00),
+                        size: 30,
+                      ),
+                    ),
+                    Text(
+                      DateFormat.yMMMM().format(focusedDay),
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFF630A00),
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        final nextMonth = DateTime(focusedDay.year, focusedDay.month + 1);
+                        if (!nextMonth.isAfter(DateTime.now())) {
+                          setState(() {
+                            focusedDay = nextMonth;
+                          });
+                        }
+                      },
+                      child: const Icon(
+                        Icons.arrow_right,
+                        color: Color(0xFF630A00),
+                        size: 30,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+                      .map((day) => Text(
+                    day,
+                    style: const TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                      color: Color(0xFF630A00),
+                    ),
+                  ))
+                      .toList(),
+                ),
+              ),
+              const SizedBox(height: 8),
+              GridView.builder(
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 7,
+                  childAspectRatio: 1,
+                  mainAxisSpacing: 8,
+                  crossAxisSpacing: 8,
+                ),
+                itemCount: 42,
+                itemBuilder: (context, index) {
+                  final date = DateTime(focusedDay.year, focusedDay.month, 1)
+                      .subtract(Duration(
+                      days: DateTime(focusedDay.year, focusedDay.month, 1).weekday - 1))
+                      .add(Duration(days: index));
 
-  void _updatePeriodDuration(int change) {
-    setState(() {
-      periodDuration += change;
-      if (periodDuration < 0) {
-        periodDuration = 0;
-      }
-      _periodDurationController.text = periodDuration.toString();
-    });
-  }
+                  final isSelected = isSameDay(date, selectedDay);
+                  final isCurrentMonth = date.month == focusedDay.month;
+                  final isFutureDate = date.isAfter(DateTime.now());
 
-  String _getPainSeverityLabel(double value) {
-    const labels = ['None', 'Mild', 'Moderate', 'Severe', 'Very Severe'];
-    return labels[value.toInt()];
+                  return GestureDetector(
+                    onTap: () {
+                      if (!isFutureDate) {
+                        setState(() {
+                          selectedDay = date;
+                        });
+                      }
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: isSelected
+                            ? const Color(0xFF630A00)
+                            : Colors.transparent,
+                        border: isCurrentMonth && !isSelected && !isFutureDate
+                            ? Border.all(color: const Color(0xFF630A00))
+                            : null,
+                      ),
+                      child: Center(
+                        child: Text(
+                          '${date.day}',
+                          style: TextStyle(
+                            color: isFutureDate
+                                ? Colors.grey.withOpacity(0.3)
+                                : !isCurrentMonth
+                                ? Colors.grey
+                                : isSelected
+                                ? Colors.white
+                                : const Color(0xFF630A00),
+                            fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                          ),
+                        ),
+                      ),
+                    ),
+                  );
+                },
+              ),
+              const SizedBox(height: 8),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  'Selected Date: ${DateFormat('MMM dd, yyyy').format(selectedDay)}',
+                  style: const TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                    color: Color(0xFF630A00),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-
     return Scaffold(
       body: SafeArea(
         child: Container(
@@ -78,14 +216,14 @@ class _CycleDetailsPageState extends State<CycleDetailsPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const SizedBox(height: 20), // Space between notification bar and cream box
+                  const SizedBox(height: 20),
                   Container(
-                    padding: const EdgeInsets.all(20), // Reduced top padding inside the cream box
+                    padding: const EdgeInsets.all(20),
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
                         colors: [
-                          Color(0xFFAAAAAA).withOpacity(0.6), // Light grey with opacity
-                          Color(0xFFAAAAAA).withOpacity(0.6), // Same light grey with opacity
+                          Color(0xFFAAAAAA).withOpacity(0.6),
+                          Color(0xFFAAAAAA).withOpacity(0.6),
                         ],
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
@@ -102,7 +240,6 @@ class _CycleDetailsPageState extends State<CycleDetailsPage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        // Rectangle indicators
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -113,22 +250,25 @@ class _CycleDetailsPageState extends State<CycleDetailsPage> {
                             _buildRectangle(Color(0xFFD9D9D9)),
                           ],
                         ),
-                        const SizedBox(height: 30), // Adjusted spacing
+                        const SizedBox(height: 30),
                         const Text(
                           'Cycle Details',
                           style: TextStyle(
-                            fontSize: 22, // Reduced from 22 to 20
+                            fontSize: 22,
                             fontWeight: FontWeight.bold,
                             color: Color(0xFF640000),
                           ),
                         ),
-                        const SizedBox(height: 12),
-                        CustomTextBox(label: 'First day of Last Period', controller: lastperiod, placeholder: 'Enter your last period'),
-                        const SizedBox(height: 4),
-                        CustomTextBox(label: 'Cycle Length', controller: cyclelength, placeholder: 'Enter your cycle length'),
-                        const SizedBox(height: 8),
-                        _buildSectionTitle(
-                            'Period Duration'),
+                        const SizedBox(height: 16),
+                        _buildCalendarSection(),
+                        const SizedBox(height: 16),
+                        CustomTextBox(
+                            label: 'Cycle Length',
+                            controller: cyclelength,
+                            placeholder: 'Enter your cycle length'
+                        ),
+                        const SizedBox(height: 16),
+                        _buildSectionTitle('Period Duration'),
                         const SizedBox(height: 8),
                         _buildDurationSelector(),
                         const SizedBox(height: 18),
@@ -159,11 +299,11 @@ class _CycleDetailsPageState extends State<CycleDetailsPage> {
                             Text('Severe', style: TextStyle(fontSize: 12)),
                           ],
                         ),
-                        Padding(padding: const EdgeInsets.all(16))
+                        const Padding(padding: EdgeInsets.all(16))
                       ],
                     ),
                   ),
-                  const SizedBox(height: 40), // Space between cream box and "Next"
+                  const SizedBox(height: 40),
                   MyButton(onTap: saveCycleDetails, buttonText: 'Next'),
                 ],
               ),
@@ -255,8 +395,8 @@ class _CycleDetailsPageState extends State<CycleDetailsPage> {
             activeColor: const Color(0xFF8B0000),
             contentPadding: EdgeInsets.zero,
             dense: true,
-            visualDensity: VisualDensity(horizontal: -4),
-            title: const Text('Light', style: TextStyle(fontSize: 12)), // Reduced from 13 to 12
+            visualDensity: const VisualDensity(horizontal: -4),
+            title: const Text('Light', style: TextStyle(fontSize: 12)),
             value: 'light',
             groupValue: flowIntensity,
             onChanged: (value) {
@@ -271,8 +411,8 @@ class _CycleDetailsPageState extends State<CycleDetailsPage> {
             activeColor: const Color(0xFF8B0000),
             contentPadding: EdgeInsets.zero,
             dense: true,
-            visualDensity: VisualDensity(horizontal: -4),
-            title: const Text('Moderate', style: TextStyle(fontSize: 12)), // Reduced from 13 to 12
+            visualDensity: const VisualDensity(horizontal: -4),
+            title: const Text('Moderate', style: TextStyle(fontSize: 12)),
             value: 'moderate',
             groupValue: flowIntensity,
             onChanged: (value) {
@@ -287,8 +427,8 @@ class _CycleDetailsPageState extends State<CycleDetailsPage> {
             activeColor: const Color(0xFF8B0000),
             contentPadding: EdgeInsets.zero,
             dense: true,
-            visualDensity: VisualDensity(horizontal: -4),
-            title: const Text('Heavy', style: TextStyle(fontSize: 12)), // Reduced from 13 to 12
+            visualDensity: const VisualDensity(horizontal: -4),
+            title: const Text('Heavy', style: TextStyle(fontSize: 12)),
             value: 'heavy',
             groupValue: flowIntensity,
             onChanged: (value) {
@@ -301,4 +441,20 @@ class _CycleDetailsPageState extends State<CycleDetailsPage> {
       ],
     );
   }
+
+  void _updatePeriodDuration(int change) {
+    setState(() {
+      periodDuration += change;
+      if (periodDuration < 0) {
+        periodDuration = 0;
+      }
+      _periodDurationController.text = periodDuration.toString();
+    });
+  }
+
+  String _getPainSeverityLabel(double value) {
+    const labels = ['None', 'Mild', 'Moderate', 'Severe', 'Very Severe'];
+    return labels[value.toInt()];
+  }
+
 }
