@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:ahana/pages/articles.dart';
 import 'package:ahana/components/basePage.dart';
+import 'package:ahana/pages/viewAppointment.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 // BasePage widget for reusing AppBar and BottomNavigationBar
 class HomePage extends StatefulWidget {
@@ -14,6 +17,13 @@ class _HomePageState extends State<HomePage> {
   bool isExpanded = false; // Controls calendar expansion
   DateTime selectedDay = DateTime.now();
   DateTime focusedDay = DateTime.now();
+  late Box<Appointment> _appointmentsBox;
+
+  @override
+  void initState() {
+    super.initState();
+    _appointmentsBox = Hive.box<Appointment>('appointments');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -182,79 +192,91 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _nextAppointmentCard() {
-    // Assuming we'll pass booked appointments from a state management solution or service
-    final List<String> bookedAppointments = []; // This would be populated dynamically
-
-    if (bookedAppointments.isEmpty) {
-      return Container(
-        margin: EdgeInsets.symmetric(vertical: 8),
-        height: 150,
-        padding: EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: Color(0xFFA76760),
-          borderRadius: BorderRadius.circular(12),
-        ),
-        child: Center(
-          child: Text(
-            'No Appointments',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
+    return ValueListenableBuilder(
+      valueListenable: _appointmentsBox.listenable(),
+      builder: (context, Box<Appointment> box, _) {
+        if (box.isEmpty) {
+          return Container(
+            margin: EdgeInsets.symmetric(vertical: 8),
+            height: 150,
+            padding: EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: Color(0xFFA76760),
+              borderRadius: BorderRadius.circular(12),
             ),
-          ),
-        ),
-      );
-    }
-
-    // Show the most recently booked appointment
-    final mostRecentAppointment = bookedAppointments.last;
-
-    return Container(
-      margin: EdgeInsets.symmetric(vertical: 8),
-      padding: EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Color(0xFFA76760),
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Row(
-        children: [
-          ClipOval(
-            child: Image.asset(
-              'lib/assets/doctor.png',
-              width: 50,
-              height: 50,
-              fit: BoxFit.cover,
-            ),
-          ),
-          SizedBox(width: 16),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Next Appointment',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                    color: Color(0xFF630A00),
-                  ),
+            child: Center(
+              child: Text(
+                'No Appointments',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
                 ),
-                SizedBox(height: 8),
-                Text(
-                  mostRecentAppointment, // Display the most recent appointment details
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 14,
-                  ),
-                ),
-              ],
+              ),
             ),
+          );
+        }
+
+        // Get the most recent appointment
+        final mostRecentAppointment = box.values.last;
+
+        return Container(
+          margin: EdgeInsets.symmetric(vertical: 8),
+          padding: EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: Color(0xFFA76760),
+            borderRadius: BorderRadius.circular(12),
           ),
-        ],
-      ),
+          child: Row(
+            children: [
+              ClipOval(
+                child: Image.asset(
+                  mostRecentAppointment.image,
+                  width: 50,
+                  height: 50,
+                  fit: BoxFit.cover,
+                ),
+              ),
+              SizedBox(width: 16),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Upcoming Appointment',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                        color: Color(0xFF630A00),
+                      ),
+                    ),
+                    SizedBox(height: 8),
+                    Text(
+                      mostRecentAppointment.name,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(height: 4),
+                    Text(
+                      '${mostRecentAppointment.date} ${mostRecentAppointment.time}',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 14,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
+
 
   Widget _card({
     required IconData icon,
@@ -265,47 +287,49 @@ class _HomePageState extends State<HomePage> {
     required Color backgroundColor,
     required Color textColor,
   }) {
-    // Assuming we'll pass booked appointments from a state management solution or service
-    final List<String> bookedAppointments = []; // This would be populated dynamically
-
     return GestureDetector(
       onTap: () {
         Navigator.pushNamed(context, '/viewappointment');
       },
-      child: Container(
-        margin: EdgeInsets.symmetric(vertical: 8),
-        width: 150,
-        padding: EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: backgroundColor,
-          borderRadius: BorderRadius.circular(12),
-        ),
-        child: Column(
-          children: [
-            Icon(
-              icon,
-              color: iconColor,
-              size: 56,
+      child: ValueListenableBuilder(
+        valueListenable: _appointmentsBox.listenable(),
+        builder: (context, Box<Appointment> box, _) {
+          return Container(
+            margin: EdgeInsets.symmetric(vertical: 8),
+            width: 150,
+            padding: EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: backgroundColor,
+              borderRadius: BorderRadius.circular(12),
             ),
-            SizedBox(height: 8),
-            Text(
-              title,
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 16,
-                color: textColor,
-              ),
+            child: Column(
+              children: [
+                Icon(
+                  icon,
+                  color: iconColor,
+                  size: 56,
+                ),
+                SizedBox(height: 8),
+                Text(
+                  title,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                    color: textColor,
+                  ),
+                ),
+                if (subtitle != null) ...[
+                  SizedBox(height: 4),
+                  Text(
+                    subtitle,
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ],
+                SizedBox(height: 8),
+              ],
             ),
-            if (subtitle != null) ...[
-              SizedBox(height: 4),
-              Text(
-                subtitle,
-                style: TextStyle(color: Colors.white),
-              ),
-            ],
-            SizedBox(height: 8),
-          ],
-        ),
+          );
+        },
       ),
     );
   }

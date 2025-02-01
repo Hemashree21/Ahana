@@ -44,6 +44,7 @@ class _BasePageState extends State<BasePage> {
           style: TextStyle(
             fontFamily: 'LeagueScript',
             color: Color(0xFF630A00),
+            fontWeight: FontWeight.w800,
             fontSize: 26,
           ),
         ),
