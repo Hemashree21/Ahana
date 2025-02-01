@@ -65,7 +65,7 @@ class _CartPageState extends State<CartPage> {
                           Navigator.pop(context); // Return to previous screen
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.brown[800],
+                          backgroundColor: Color(0xFF630A00),
                         ),
                         child: Text("Continue Shopping", style: TextStyle(color: Colors.white)),
                       ),

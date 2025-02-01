@@ -54,7 +54,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         scaffoldBackgroundColor: const Color(0xFFEFE7CA), // Global background color
       ),
-      initialRoute: '/', // Set the initial route here
+      initialRoute: '/auth', // Set the initial route here
       routes: {
         '/': (context) => HomePage(), // Home page as the initial route
         '/auth': (context) => AuthPage(), // Authentication page route

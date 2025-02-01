@@ -1,5 +1,7 @@
 import 'package:ahana/pages/articles.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class BasePage extends StatefulWidget {
   final Widget body;
@@ -18,11 +20,58 @@ class BasePage extends StatefulWidget {
 class _BasePageState extends State<BasePage> {
   late String _activeSection;
 
+  // Sign User Out
+  void signUserOut(BuildContext context) async {
+    try {
+      // Sign out from Google and Firebase
+      await GoogleSignIn().signOut();
+      await FirebaseAuth.instance.signOut();
+
+      // Show a success dialog after signing out
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text('Signed Out'),
+          content: const Text('You have been signed out successfully.'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                // Close the dialog
+                Navigator.pop(context);
+                // Navigate to /auth page
+                Navigator.pushReplacementNamed(context, '/auth');
+              },
+              child: const Text('OK'),
+            ),
+          ],
+        ),
+      );
+    } catch (e) {
+      // Show an error dialog if something goes wrong
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text('Error'),
+          content: const Text('An error occurred while signing out.'),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text('OK'),
+            ),
+          ],
+        ),
+      );
+    }
+  }
+
+
   @override
   void initState() {
     super.initState();
     _activeSection = widget.activeSection;
   }
+
+
 
   void _handleNavigation(BuildContext context, String routeName, String section) {
     setState(() {
@@ -30,6 +79,7 @@ class _BasePageState extends State<BasePage> {
     });
     Navigator.pushNamed(context, routeName);
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -51,12 +101,24 @@ class _BasePageState extends State<BasePage> {
         centerTitle: true,
         actions: [
           Padding(
-            padding: EdgeInsets.only(right: 16),
-            child: GestureDetector(
-              onTap: () {
-                Navigator.pushNamed(context, '/cart');
-              },
-              child: Icon(Icons.shopping_cart, color: Color(0xFF630A00)),
+            padding: EdgeInsets.only(left: 16, right: 8), // Adjust padding to align left
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, '/cart');
+                  },
+                  child: Icon(Icons.shopping_cart, color: Color(0xFF630A00)),
+                ),
+                SizedBox(width: 16), // Space between cart and logout
+                GestureDetector(
+                  onTap: () {
+                    signUserOut(context);
+                  },
+                  child: Icon(Icons.logout, color: Color(0xFF630A00)),
+                ),
+              ],
             ),
           ),
         ],

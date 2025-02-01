@@ -14,42 +14,6 @@ class Onboarding1 extends StatefulWidget {
 class _OnboardingPageState extends State<Onboarding1> {
   final _formKey = GlobalKey<FormState>();
 
-  // Sign User Out
-  void signUserOut(BuildContext context) async {
-    try {
-      await GoogleSignIn().signOut();
-      await FirebaseAuth.instance.signOut();
-
-      showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-          title: const Text('Signed Out'),
-          content: const Text('You have been signed out successfully.'),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(context),
-              child: const Text('OK'),
-            ),
-          ],
-        ),
-      );
-    } catch (e) {
-      showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-          title: const Text('Error'),
-          content: const Text('An error occurred while signing out.'),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(context),
-              child: const Text('OK'),
-            ),
-          ],
-        ),
-      );
-    }
-  }
-
   void savePersonalDetails() {
     if (_formKey.currentState!.validate()) {
       Navigator.push(
@@ -67,20 +31,9 @@ class _OnboardingPageState extends State<Onboarding1> {
     }
   }
 
-
-  @override
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Onboarding'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.logout),
-            onPressed: () => signUserOut(context),
-          ),
-        ],
-      ),
       backgroundColor: const Color(0xFFEFE7CA),
       body: SafeArea(
         child: SingleChildScrollView(
