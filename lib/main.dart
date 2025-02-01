@@ -1,5 +1,6 @@
 import 'package:ahana/authentication/auth_page.dart';
 import 'package:ahana/components/basePage.dart';
+import 'package:ahana/const.dart';
 import 'package:ahana/pages/articles.dart';
 import 'package:ahana/pages/cart.dart';
 import 'package:ahana/pages/cartService.dart';
@@ -12,6 +13,7 @@ import 'package:ahana/pages/viewAppointment.dart';
 import 'package:ahana/pages/viewProducts.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'firebase_options.dart';
@@ -28,6 +30,9 @@ void main() async {
   }
 
   await Hive.openBox<Appointment>('appointments');
+
+  Stripe.publishableKey = stripePublishableKey;
+  await Stripe.instance.applySettings();
 
   await dotenv.load(fileName: ".env");
 

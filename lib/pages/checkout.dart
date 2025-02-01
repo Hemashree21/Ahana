@@ -1,3 +1,4 @@
+import 'package:ahana/services/stripeService.dart';
 import 'package:flutter/material.dart';
 import 'package:ahana/components/myButton.dart';
 import 'package:ahana/pages/cartService.dart';
@@ -10,6 +11,7 @@ class CheckoutPage extends StatefulWidget {
 class _CheckoutPageState extends State<CheckoutPage> {
   final CartService _cartService = CartService();
   bool _isLoading = true;
+  String _selectedPaymentMethod = 'visa'; // Default selection
 
   @override
   void initState() {
@@ -48,10 +50,25 @@ class _CheckoutPageState extends State<CheckoutPage> {
             _buildPaymentSection(),
             const SizedBox(height: 30),
             MyButton(
-              onTap: () {
-                // Handle continue button tap
+              onTap: () async {
+                try {
+                  setState(() => _isLoading = true);
+                  int amountInPaise = (_cartService.total * 100).round();
+                  await StripeService.instance.makePayment(
+                    amount: amountInPaise,
+                  );
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text('Payment successful!')),
+                  );
+                } catch (e) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text('Payment failed: ${e.toString()}')),
+                  );
+                } finally {
+                  setState(() => _isLoading = false);
+                }
               },
-              buttonText: 'Continue',
+              buttonText: _isLoading ? 'Processing...' : 'Continue',
             ),
           ],
         ),
@@ -111,43 +128,92 @@ class _CheckoutPageState extends State<CheckoutPage> {
           ),
         ),
         const SizedBox(height: 16),
-        _buildPaymentOption('lib/assets/visa.png', '**** **** **** 2109'),
+        _buildPaymentOption(
+          'visa',
+          'lib/assets/visa.png',
+          '**** **** **** 2109',
+          'Credit/Debit Card',
+        ),
         const SizedBox(height: 12),
-        _buildPaymentOption('lib/assets/paypal.png', '**** **** **** 2109'),
+        _buildPaymentOption(
+          'paypal',
+          'lib/assets/paypal.png',
+          '**** **** **** 2109',
+          'PayPal',
+        ),
         const SizedBox(height: 12),
-        _buildPaymentOption('lib/assets/maestro.png', '**** **** **** 2109'),
-        const SizedBox(height: 12),
-        _buildPaymentOption('lib/assets/apple_pay.png', '**** **** **** 2109'),
+        _buildPaymentOption(
+          'apple_pay',
+          'lib/assets/apple_pay.png',
+          '**** **** **** 2109',
+          'Apple Pay',
+        ),
       ],
     );
   }
 
-  Widget _buildPaymentOption(String imagePath, String maskedNumber) {
-    return Container(
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        border: Border.all(
-          color: const Color(0xFF640000),
-          width: 1,
+  Widget _buildPaymentOption(
+      String method,
+      String imagePath,
+      String maskedNumber,
+      String label,
+      ) {
+    bool isSelected = _selectedPaymentMethod == method;
+
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          _selectedPaymentMethod = method;
+        });
+      },
+      child: Container(
+        padding: const EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          border: Border.all(
+            color: isSelected ? const Color(0xFF640000) : Color(0xFF640000),
+            width: isSelected ? 2 : 1,
+          ),
+          borderRadius: BorderRadius.circular(8),
+          color: isSelected ? Colors.transparent : Colors.transparent,
         ),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Row(
-        children: [
-          Image.asset(
-            imagePath,
-            height: 40,
-            width: 40,
-          ),
-          const SizedBox(width: 12),
-          Text(
-            maskedNumber,
-            style: TextStyle(
-              fontSize: 16,
-              color: Colors.black,
+        child: Row(
+          children: [
+            Image.asset(
+              imagePath,
+              height: 40,
+              width: 40,
             ),
-          ),
-        ],
+            const SizedBox(width: 12),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    label,
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                      color: Colors.black,
+                    ),
+                  ),
+                  Text(
+                    maskedNumber,
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.grey[600],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            if (isSelected)
+              Icon(
+                Icons.check_circle,
+                color: Color(0xFF640000),
+                size: 24,
+              ),
+          ],
+        ),
       ),
     );
   }
