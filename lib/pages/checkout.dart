@@ -1,3 +1,6 @@
+
+import 'package:ahana/components/basePage.dart';
+import 'package:ahana/pages/orderConfirmation.dart';
 import 'package:ahana/services/stripeService.dart';
 import 'package:flutter/material.dart';
 import 'package:ahana/components/myButton.dart';
@@ -57,8 +60,16 @@ class _CheckoutPageState extends State<CheckoutPage> {
                   await StripeService.instance.makePayment(
                     amount: amountInPaise,
                   );
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('Payment successful!')),
+
+                  // Clear the cart after successful payment
+                  _cartService.clearCart();
+
+                  // Navigate to Order Confirmation Page
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => BasePage(
+                        activeSection: 'shopping',
+                        body: OrderConfirmationPage())),
                   );
                 } catch (e) {
                   ScaffoldMessenger.of(context).showSnackBar(

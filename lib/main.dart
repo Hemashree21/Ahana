@@ -23,6 +23,8 @@ import 'package:ahana/pages/viewAppointment.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  await dotenv.load(fileName: ".env");
+
   await Hive.initFlutter();
 
   if (!Hive.isAdapterRegistered(1)) {
@@ -33,8 +35,6 @@ void main() async {
 
   Stripe.publishableKey = stripePublishableKey;
   await Stripe.instance.applySettings();
-
-  await dotenv.load(fileName: ".env");
 
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
@@ -54,13 +54,13 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         scaffoldBackgroundColor: const Color(0xFFEFE7CA), // Global background color
       ),
-      initialRoute: '/auth', // Set the initial route here
+      initialRoute: '/', // Set the initial route here
       routes: {
         '/': (context) => HomePage(), // Home page as the initial route
         '/auth': (context) => AuthPage(), // Authentication page route
         '/articles': (context) => BasePage(
-            activeSection: 'articles',
-            body: ArticlePage(),
+          activeSection: 'articles',
+          body: ArticlePage(),
         ), // Articles page route
         '/shopping': (context) => BasePage(
           activeSection: 'shopping',
@@ -71,24 +71,24 @@ class MyApp extends StatelessWidget {
             body: AppointmentPage()
         ),
         '/cart': (context) => BasePage(
-            activeSection: 'shopping',
-            body: CartPage(),
+          activeSection: 'shopping',
+          body: CartPage(),
         ),
         '/community': (context) => BasePage(
-            activeSection: 'community',
-            body: CommunityPage(),
+          activeSection: 'community',
+          body: CommunityPage(),
         ),
         '/periodtracker': (context) => BasePage(
-            activeSection: 'period_tracker',
-            body: PeriodTrackerPage(),
+          activeSection: 'period_tracker',
+          body: PeriodTrackerPage(),
         ),
         '/checkout': (context) => BasePage(
-            activeSection: 'shopping',
-            body: CheckoutPage(),
+          activeSection: 'shopping',
+          body: CheckoutPage(),
         ),
         '/viewappointment': (context) => BasePage(
-            activeSection: 'consultation',
-            body: ViewAppointment(),
+          activeSection: 'consultation',
+          body: ViewAppointment(),
         )
       },
     );

@@ -12,6 +12,23 @@ class StripeService {
       final paymentIntentData = await _createPaymentIntent(amount, "inr");
       if (paymentIntentData == null) return;
 
+      print("Payment Intent Data: $paymentIntentData");
+
+      // Handle 3D Secure if required
+      if (paymentIntentData['status'] == 'requires_action') {
+        final paymentIntent = await Stripe.instance.handleNextAction(
+          paymentIntentData['client_secret'],
+        );
+
+        if (paymentIntent.status == 'succeeded') {
+          print("Payment succeeded after 3D Secure authentication");
+          return;
+        } else {
+          throw PaymentException("Payment failed after 3D Secure authentication");
+        }
+      }
+
+      // Proceed with the payment sheet
       await Stripe.instance.initPaymentSheet(
         paymentSheetParameters: SetupPaymentSheetParameters(
           paymentIntentClientSecret: paymentIntentData['client_secret'],
@@ -27,6 +44,7 @@ class StripeService {
           billingDetails: const BillingDetails(),
         ),
       );
+      print("Payment Sheet Initialized Successfully");
 
       await _processPayment();
     } catch (e) {

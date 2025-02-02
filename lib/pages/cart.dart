@@ -62,7 +62,7 @@ class _CartPageState extends State<CartPage> {
                       SizedBox(height: 8),
                       ElevatedButton(
                         onPressed: () {
-                          Navigator.pop(context); // Return to previous screen
+                          Navigator.pushNamed(context, '/shopping');
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Color(0xFF630A00),
