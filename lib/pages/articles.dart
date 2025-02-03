@@ -91,11 +91,11 @@ class ArticlePage extends StatelessWidget {
                   "author": "Sarah Green",
                   "content":
                   "Hormonal imbalance can have a significant impact on both physical and emotional health. It occurs when there is an excess or deficiency of certain hormones, leading to various symptoms and conditions. Understanding hormonal imbalance is essential for effective management. Here are the key points to know:\n\n"
-                      "- *Causes of Hormonal Imbalance*: Common causes include stress, poor diet, lack of exercise, medical conditions like polycystic ovary syndrome (PCOS), thyroid disorders, and perimenopause.\n"
-                      "- *Symptoms*: Symptoms can vary but may include irregular periods, weight gain, fatigue, mood swings, acne, hair loss, and sleep disturbances.\n"
-                      "- *Diagnosis*: Hormonal imbalances can be diagnosed through blood tests that measure hormone levels, along with a thorough medical history and physical examination.\n"
-                      "- *Treatment Options*: Treatments may include lifestyle changes, hormone replacement therapy, medications, and natural remedies such as herbal supplements to balance hormone levels.\n"
-                      "- *Prevention*: Maintaining a healthy lifestyle through balanced nutrition, regular exercise, and stress management can help prevent or minimize hormonal imbalances."
+                      "- Causes of Hormonal Imbalance: Common causes include stress, poor diet, lack of exercise, medical conditions like polycystic ovary syndrome (PCOS), thyroid disorders, and perimenopause.\n"
+                      "- Symptoms: Symptoms can vary but may include irregular periods, weight gain, fatigue, mood swings, acne, hair loss, and sleep disturbances.\n"
+                      "- Diagnosis: Hormonal imbalances can be diagnosed through blood tests that measure hormone levels, along with a thorough medical history and physical examination.\n"
+                      "- Treatment Options: Treatments may include lifestyle changes, hormone replacement therapy, medications, and natural remedies such as herbal supplements to balance hormone levels.\n"
+                      "- Prevention: Maintaining a healthy lifestyle through balanced nutrition, regular exercise, and stress management can help prevent or minimize hormonal imbalances."
                 },
               ],
             ),
@@ -119,11 +119,11 @@ class ArticlePage extends StatelessWidget {
                   "author": "Sophia Lee",
                   "content":
                   "Menstrual health is an essential aspect of a woman’s overall well-being, encompassing not only the regularity of menstrual cycles but also the physical and emotional experiences surrounding menstruation. This guide provides valuable insights to understand menstrual health better. Key points to consider include:\n\n"
-                      "- *Understanding the Menstrual Cycle*: The average menstrual cycle lasts about 28 days, though it can range from 21 to 35 days. It involves a series of hormonal changes that prepare the body for pregnancy. If pregnancy doesn't occur, the uterus sheds its lining, resulting in menstruation.\n"
-                      "- *Common Menstrual Problems*: Some common issues include heavy bleeding (menorrhagia), painful periods (dysmenorrhea), irregular periods, and premenstrual syndrome (PMS). It's important to seek medical advice if these issues affect daily life.\n"
-                      "- *Managing Menstrual Discomfort*: Over-the-counter pain relievers, heating pads, and gentle exercise can help alleviate cramps. Staying hydrated and consuming a balanced diet rich in fruits, vegetables, and whole grains also support menstrual health.\n"
-                      "- *Tracking Your Cycle*: Tracking your cycle using an app or calendar can help identify patterns and irregularities. This practice is particularly useful for predicting ovulation and understanding fertility.\n"
-                      "- *When to See a Doctor*: If you experience severe pain, missed periods, or irregular cycles, it’s crucial to consult with a healthcare provider. Conditions like polycystic ovary syndrome (PCOS) or fibroids may require medical intervention."
+                      "- Understanding the Menstrual Cycle: The average menstrual cycle lasts about 28 days, though it can range from 21 to 35 days. It involves a series of hormonal changes that prepare the body for pregnancy. If pregnancy doesn't occur, the uterus sheds its lining, resulting in menstruation.\n"
+                      "- Common Menstrual Problems: Some common issues include heavy bleeding (menorrhagia), painful periods (dysmenorrhea), irregular periods, and premenstrual syndrome (PMS). It's important to seek medical advice if these issues affect daily life.\n"
+                      "- Managing Menstrual Discomfort: Over-the-counter pain relievers, heating pads, and gentle exercise can help alleviate cramps. Staying hydrated and consuming a balanced diet rich in fruits, vegetables, and whole grains also support menstrual health.\n"
+                      "- Tracking Your Cycle: Tracking your cycle using an app or calendar can help identify patterns and irregularities. This practice is particularly useful for predicting ovulation and understanding fertility.\n"
+                      "- When to See a Doctor: If you experience severe pain, missed periods, or irregular cycles, it’s crucial to consult with a healthcare provider. Conditions like polycystic ovary syndrome (PCOS) or fibroids may require medical intervention."
                 },
                 {
                   "title": "Natural Remedies for Menstrual Health",
@@ -131,12 +131,12 @@ class ArticlePage extends StatelessWidget {
                   "author": "Anna Taylor",
                   "content":
                   "Maintaining menstrual health through natural remedies can provide relief from common menstrual issues like cramps, irregular cycles, and PMS. These remedies focus on promoting balance in the body using holistic approaches such as dietary changes, herbal treatments, and lifestyle adjustments. Key natural remedies include:\n\n"
-                      "- *Herbal Teas*: Drinking herbal teas like ginger, chamomile, and peppermint can help reduce menstrual cramps, alleviate bloating, and ease stress. These herbs have anti-inflammatory and soothing properties that promote relaxation.\n"
-                      "- *Dietary Adjustments*: A balanced diet rich in omega-3 fatty acids, magnesium, and antioxidants can support hormone balance and reduce menstrual discomfort. Incorporating foods like flaxseeds, walnuts, leafy greens, and salmon can be beneficial.\n"
-                      "- *Exercise and Yoga*: Regular physical activity, including gentle exercises like yoga, can improve blood circulation, reduce cramps, and alleviate stress. Poses such as child’s pose, cat-cow, and forward bends help relieve tension in the lower back and abdomen.\n"
-                      "- *Essential Oils*: Aromatherapy using essential oils like lavender and clary sage can help relax the body and reduce pain associated with menstruation. Massaging diluted essential oils into the abdomen may provide relief from cramps.\n"
-                      "- *Acupuncture and Acupressure*: These traditional Chinese medicine techniques focus on stimulating specific points on the body to restore balance and alleviate menstrual symptoms like cramps and bloating.\n"
-                      "- *Heat Therapy*: Applying heat to the abdomen using a heating pad or warm compress can relax muscles and reduce cramping. It’s one of the most commonly recommended natural remedies for menstrual discomfort."
+                      "- Herbal Teas: Drinking herbal teas like ginger, chamomile, and peppermint can help reduce menstrual cramps, alleviate bloating, and ease stress. These herbs have anti-inflammatory and soothing properties that promote relaxation.\n"
+                      "- Dietary Adjustments: A balanced diet rich in omega-3 fatty acids, magnesium, and antioxidants can support hormone balance and reduce menstrual discomfort. Incorporating foods like flaxseeds, walnuts, leafy greens, and salmon can be beneficial.\n"
+                      "- Exercise and Yoga: Regular physical activity, including gentle exercises like yoga, can improve blood circulation, reduce cramps, and alleviate stress. Poses such as child’s pose, cat-cow, and forward bends help relieve tension in the lower back and abdomen.\n"
+                      "- Essential Oils: Aromatherapy using essential oils like lavender and clary sage can help relax the body and reduce pain associated with menstruation. Massaging diluted essential oils into the abdomen may provide relief from cramps.\n"
+                      "- Acupuncture and Acupressure: These traditional Chinese medicine techniques focus on stimulating specific points on the body to restore balance and alleviate menstrual symptoms like cramps and bloating.\n"
+                      "- Heat Therapy: Applying heat to the abdomen using a heating pad or warm compress can relax muscles and reduce cramping. It’s one of the most commonly recommended natural remedies for menstrual discomfort."
                 },
                 {
                   "title": "Debunking Period Myths",
@@ -144,13 +144,13 @@ class ArticlePage extends StatelessWidget {
                   "author": "Rachel Adams",
                   "content":
                   "There are numerous myths surrounding menstruation, often leading to misconceptions and unnecessary stigma. It's important to educate ourselves and debunk these myths to promote better understanding and comfort during periods. Here are some common period myths and the truths behind them:\n\n"
-                      "- *Myth 1: You can’t get pregnant during your period*: While the chances of getting pregnant during your period are lower, it's still possible, especially if you have a shorter menstrual cycle or irregular periods. Sperm can live in the body for several days, so if you have unprotected sex near the end of your period, pregnancy is still a possibility.\n"
-                      "- *Myth 2: Periods are always 28 days long*: Not all menstrual cycles are the same length. While 28 days is considered an average cycle, it’s normal for cycles to range between 21 and 35 days. Variations in cycle length can be influenced by age, stress, and health conditions.\n"
-                      "- *Myth 3: You can’t swim while on your period*: This myth often prevents people from participating in swimming or water sports. With the right menstrual products like tampons or menstrual cups, it is safe to swim during your period without leakage.\n"
-                      "- *Myth 4: Menstrual blood is dirty*: Menstrual blood is not impure or dirty. It is simply the shedding of the uterine lining, and the body has mechanisms to deal with it. This myth is rooted in social taboos and should be dispelled to reduce stigma.\n"
-                      "- *Myth 5: Tampons can get lost inside your body*: Tampons cannot get lost inside the vagina. If a tampon is inserted correctly, it will remain in place until you remove it. It is important to remember to remove tampons within the recommended time frame to avoid health risks.\n"
-                      "- *Myth 6: You don’t need to worry about period hygiene*: Maintaining proper menstrual hygiene is essential for preventing infections and irritations. Regularly changing menstrual products and cleaning the genital area with mild soap and water is important for good hygiene.\n"
-                      "- *Myth 7: Periods should be pain-free*: While some discomfort is common, excessive pain during periods could indicate underlying health issues such as endometriosis or fibroids. If period pain is severe or interferes with daily life, it's advisable to consult a healthcare provider."
+                      "- Myth 1: You can’t get pregnant during your period: While the chances of getting pregnant during your period are lower, it's still possible, especially if you have a shorter menstrual cycle or irregular periods. Sperm can live in the body for several days, so if you have unprotected sex near the end of your period, pregnancy is still a possibility.\n"
+                      "- Myth 2: Periods are always 28 days long: Not all menstrual cycles are the same length. While 28 days is considered an average cycle, it’s normal for cycles to range between 21 and 35 days. Variations in cycle length can be influenced by age, stress, and health conditions.\n"
+                      "- Myth 3: You can’t swim while on your period: This myth often prevents people from participating in swimming or water sports. With the right menstrual products like tampons or menstrual cups, it is safe to swim during your period without leakage.\n"
+                      "- Myth 4: Menstrual blood is dirty: Menstrual blood is not impure or dirty. It is simply the shedding of the uterine lining, and the body has mechanisms to deal with it. This myth is rooted in social taboos and should be dispelled to reduce stigma.\n"
+                      "- Myth 5: Tampons can get lost inside your body: Tampons cannot get lost inside the vagina. If a tampon is inserted correctly, it will remain in place until you remove it. It is important to remember to remove tampons within the recommended time frame to avoid health risks.\n"
+                      "- Myth 6: You don’t need to worry about period hygiene: Maintaining proper menstrual hygiene is essential for preventing infections and irritations. Regularly changing menstrual products and cleaning the genital area with mild soap and water is important for good hygiene.\n"
+                      "- Myth 7: Periods should be pain-free: While some discomfort is common, excessive pain during periods could indicate underlying health issues such as endometriosis or fibroids. If period pain is severe or interferes with daily life, it's advisable to consult a healthcare provider."
                 },
               ],
             ),

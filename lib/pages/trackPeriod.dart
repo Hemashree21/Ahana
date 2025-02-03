@@ -731,7 +731,9 @@ class _PeriodTrackerPageState extends State<PeriodTrackerPage> {
                     ),
                     minimumSize: const Size(215, 33),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/shopping');
+                  },
                   child: const Text(
                     "Buy Now",
                     style: TextStyle(color: Colors.white),
