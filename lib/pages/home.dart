@@ -1,3 +1,4 @@
+import 'package:ahana/components/chatbotWidget.dart';
 import 'package:ahana/components/periodCalendar.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -28,102 +29,111 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return BasePage(
-      body: SingleChildScrollView(
-        padding: EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Greeting Text
-            Text(
-              'Hi Sara!',
-              style: TextStyle(
-                fontSize: 28,
-                fontWeight: FontWeight.bold,
-                color: Color(0xFF630A00),
-              ),
-            ),
-            SizedBox(height: 8),
-            Text(
-              'January, 2025',
-              style: TextStyle(
-                fontSize: 16,
-                color: Colors.black,
-              ),
-            ),
-            SizedBox(height: 16),
+      body: Stack(
+        children: [
+          SingleChildScrollView(
+            padding: EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Greeting Text
+                Text(
+                  'Hi Sara!',
+                  style: TextStyle(
+                    fontSize: 28,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFF630A00),
+                  ),
+                ),
+                SizedBox(height: 8),
+                Text(
+                  'January, 2025',
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.black,
+                  ),
+                ),
+                SizedBox(height: 16),
 
-            // Calendar Section
-            const PeriodCalendar(),
-            SizedBox(height: 16),
+                // Calendar Section
+                const PeriodCalendar(),
+                SizedBox(height: 16),
 
-            // Today Section
-            Text(
-              'Today',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: Color(0xFF630A00),
-              ),
-            ),
-            SizedBox(height: 8),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(
-                width: MediaQuery.of(context).size.width * 0.55, // 65% width
-                child: _nextAppointmentCard(),
-              ),
-              const SizedBox(width: 8),
-              SizedBox(
-                width: MediaQuery.of(context).size.width * 0.35, // 35% width
-                child: Column(
+                // Today Section
+                Text(
+                  'Today',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFF630A00),
+                  ),
+                ),
+                SizedBox(height: 8),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    _card(
-                      icon: Icons.book,
-                      title: 'Consultation',
-                      iconColor: Color(0xFF630A00),
-                      backgroundColor: Color(0xFFA76760),
-                      textColor: Color(0xFF630A00),
-                      subtitle: 'History',
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.55,
+                      child: _nextAppointmentCard(),
+                    ),
+                    const SizedBox(width: 8),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.35,
+                      child: Column(
+                        children: [
+                          _card(
+                            icon: Icons.book,
+                            title: 'Consultation',
+                            iconColor: Color(0xFF630A00),
+                            backgroundColor: Color(0xFFA76760),
+                            textColor: Color(0xFF630A00),
+                            subtitle: 'History',
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),
-              ),
-            ],
-          ),
-          SizedBox(height: 16),
+                SizedBox(height: 16),
 
-            // Popular Articles Section
-            Text(
-              'Popular Articles',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: Color(0xFF630A00),
-              ),
-            ),
-            SizedBox(height: 8),
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => BasePage(
-                          activeSection: 'articles',
-                          body: ArticlePage()
-                      ),
-                      settings: RouteSettings(name: '/articles')
+                // Popular Articles Section
+                Text(
+                  'Popular Articles',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFF630A00),
                   ),
-                );
-              },
-              child: _articleCard(
-                image: 'lib/assets/image3.jpeg',
-                title: "Top 6 Remedies for Teens",
-                author: 'Dr. Lisa White',
-              ),
+                ),
+                SizedBox(height: 8),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => BasePage(
+                          activeSection: 'articles',
+                          body: ArticlePage(),
+                        ),
+                        settings: RouteSettings(name: '/articles'),
+                      ),
+                    );
+                  },
+                  child: _articleCard(
+                    image: 'lib/assets/image3.jpeg',
+                    title: "Top 6 Remedies for Teens",
+                    author: 'Dr. Lisa White',
+                  ),
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+          Positioned(
+            bottom: 16,
+            right: 16,
+            child: ChatbotWidget(),
+          ),
+        ],
       ),
     );
   }
