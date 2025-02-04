@@ -47,7 +47,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 SizedBox(height: 8),
                 Text(
-                  'January, 2025',
+                  'February, 2025',
                   style: TextStyle(
                     fontSize: 16,
                     color: Colors.black,

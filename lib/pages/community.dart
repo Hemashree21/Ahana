@@ -11,7 +11,7 @@ class _CommunityPageState extends State<CommunityPage> {
   final TextEditingController _postController = TextEditingController();
   final List<Map<String, dynamic>> posts = [
     {
-      'username': 'Aarav Sharma',
+      'username': 'Hemashree',
       'location': 'Karnataka, India',
       'content': '"The whole secret of existence lies in the pursuit of meaning, purpose, and connection..."',
       'likes': 120,
@@ -21,8 +21,8 @@ class _CommunityPageState extends State<CommunityPage> {
       'shared': false,
     },
     {
-      'username': 'Priya Patel',
-      'location': 'Maharashtra, India',
+      'username': 'Anshika',
+      'location': 'Uttar Pradesh, India',
       'content': '"Self-discovery is the key to personal growth and fulfillment..."',
       'likes': 98,
       'comments': [],
@@ -31,7 +31,7 @@ class _CommunityPageState extends State<CommunityPage> {
       'shared': false,
     },
     {
-      'username': 'Rahul Kumar',
+      'username': 'Nithya',
       'location': 'Tamil Nadu, India',
       'content': '"Every moment is a fresh beginning..."',
       'likes': 76,

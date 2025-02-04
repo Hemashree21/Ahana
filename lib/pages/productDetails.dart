@@ -108,7 +108,9 @@ class _ProductPageState extends State<ProductPage> {
         "Weight Management",
         "Bone Health",
         "Blood Sugar Regulation",
-        "Cognitive Enhancement"
+        "Cognitive Enhancement",
+        "Immunity Booster",
+        "Excellent Source of Calcium and Iron"
       ],
       'Garlic Pickle': [
         "Boosts Immunity",

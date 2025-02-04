@@ -148,7 +148,7 @@ class DoctorCard extends StatelessWidget {
 final List<Doctor> doctorsList = [
   Doctor(
     imageUrl: 'lib/assets/doctor_1.jpg',
-    name: 'Haydee, Ph.D.',
+    name: 'Haydee, MD',
     specialty: 'Gynecologist',
     rating: '5.0',
     patients: 160,
@@ -163,8 +163,8 @@ final List<Doctor> doctorsList = [
   ),
   Doctor(
     imageUrl: 'lib/assets/doctor_2.jpg',
-    name: 'John Doe',
-    specialty: 'Gynecologist',
+    name: 'John Doe, MBBS',
+    specialty: 'Dietician',
     rating: '4.5',
     patients: 124,
     about: 'Dr. John Doe specializes in women\'s reproductive health and has extensive experience in treating various gynecological conditions.',
@@ -178,7 +178,7 @@ final List<Doctor> doctorsList = [
   ),
   Doctor(
     imageUrl: 'lib/assets/doctor_3.jpg',
-    name: 'Allexa, Ph.D.',
+    name: 'Allexa, MS',
     specialty: 'Gynecologist',
     rating: '4.9',
     patients: 100,
@@ -193,7 +193,7 @@ final List<Doctor> doctorsList = [
   ),
   Doctor(
     imageUrl: 'lib/assets/doctor_4.jpg',
-    name: 'Victoria, Ph.D.',
+    name: 'Victoria, MD.',
     specialty: 'Gynecologist',
     rating: '4.9',
     patients: 89,
@@ -208,8 +208,8 @@ final List<Doctor> doctorsList = [
   ),
   Doctor(
     imageUrl: 'lib/assets/doctor_5.jpeg',
-    name: 'Dara, Ph.D.',
-    specialty: 'Gynecologist',
+    name: 'Dara, MD',
+    specialty: 'Dietician',
     rating: '4.8',
     patients: 78,
     about: 'Dr. Dara specializes in high-risk pregnancies and advanced gynecological procedures with a patient-centered approach.',
@@ -223,7 +223,7 @@ final List<Doctor> doctorsList = [
   ),
   Doctor(
     imageUrl: 'lib/assets/doctor_6.jpeg',
-    name: 'Viki, Ph.D.',
+    name: 'Viki, MBBS',
     specialty: 'Gynecologist',
     rating: '4.4',
     patients: 60,
