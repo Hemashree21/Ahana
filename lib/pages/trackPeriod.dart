@@ -1,4 +1,6 @@
+import 'package:ahana/components/basePage.dart';
 import 'package:ahana/components/periodCalendar.dart';
+import 'package:ahana/pages/personalisedRecommendation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -165,6 +167,37 @@ class _PeriodTrackerPageState extends State<PeriodTrackerPage> {
             _buildSuggestedYogasanas(),
             const SizedBox(height: 16),
             _buildSuggestedHomeFoods(),
+            const SizedBox(height: 20),
+            Center(
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => BasePage(
+                        activeSection: 'period_tracker',
+                        body: Recommendation(selectedSymptom: categories[selectedCategory]['name'],),
+                      ),
+                    ),
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color(0xFF630A00), // Button color
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
+                child: const Text(
+                  'Generate Personalised Plan',
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       ),
